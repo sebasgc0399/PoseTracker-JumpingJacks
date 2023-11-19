@@ -1,16 +1,21 @@
 import ultralytics
 ultralytics.checks()
 
-# Importar las bibliotecas necesarias
-import cv2
 from camera_operations import CameraOperations
 from pose_estimation import PoseEstimator
+from visualization import Visualization
+from jumping_jack_counter import JumpingJackCounter
+
+jumpingJackCounter = JumpingJackCounter()
 
 # Crear una instancia de CameraOperations
 camera = CameraOperations()
 
 # Crear una instancia de PoseEstimator
 pose_estimator = PoseEstimator()
+
+# Crear una instancia de Visualization
+visualization = Visualization()
 
 # Lista de conexiones entre puntos clave
 # Cada conexión es un par de índices en la lista de puntos clave
@@ -50,42 +55,26 @@ while True:
 
     # Procesar los resultados
     if resultados[0].keypoints.xy[0].nelement() > 0:
-        # Dibujar los keypoints
-        for idx, punto in enumerate(resultados[0].keypoints.xy[0]):
-            x, y = punto
-            if x > 0 and y > 0:
-                cv2.circle(frame, (int(x), int(y)), 5, (0, 0, 255), -1)
-
-        # Dibujar las conexiones
-        for conexion in conexiones:
-            punto_inicio = resultados[0].keypoints.xy[0][conexion[0]]
-            punto_final = resultados[0].keypoints.xy[0][conexion[1]]
-
-            if punto_inicio[0] > 0 and punto_inicio[1] > 0 and punto_final[0] > 0 and punto_final[1] > 0:
-                cv2.line(frame, (int(punto_inicio[0]), int(punto_inicio[1])), 
-                         (int(punto_final[0]), int(punto_final[1])), (255, 0, 0), 2)
+        visualization.dibujar_keypoints(frame, resultados[0].keypoints.xy[0])
+        visualization.dibujar_conexiones(frame, resultados[0].keypoints.xy[0], conexiones)
      
         # Determinar el estado actual y actualizar el contador
         estado_actual = pose_estimator.determinar_estado(resultados[0].keypoints.xy[0])
         print(f"Estado actual: {estado_actual}")  # Depuración
 
-        # Cambiar la lógica para contar un Jumping Jack completo
-        if estado_previo == "Abierto" and estado_actual == "Cerrado":
-            contador_jumping_jacks += 1
-            print(f"Jumping Jack contado! Total: {contador_jumping_jacks}")  # Depuración
 
-        estado_previo = estado_actual
+        contador_jumping_jacks = jumpingJackCounter.contar(estado_actual)
 
     # Mostrar el contador de Jumping Jacks
-    cv2.putText(frame, f'Jumping Jacks: {contador_jumping_jacks}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+    visualization.mostrar_contador_jumpings(frame, contador_jumping_jacks)
     
     # Mostrar el frame resultante
-    cv2.imshow('Detecciones de Postura', frame)
+    visualization.mostrar_frame(frame)
 
     # Romper el bucle si se presiona 'q'
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if not visualization.debe_continuar():
         break
 
 # Cuando todo esté hecho, liberar la captura
 camera.release()
-cv2.destroyAllWindows()
+visualization.cerrar()
