@@ -8,6 +8,18 @@
 - **Análisis de Movimiento:** Proporciona retroalimentación sobre la forma y la técnica del ejercicio.
 - **Fácil de Usar:** Interfaz intuitiva y guía paso a paso para empezar rápidamente.
 
+## Nueva Funcionalidad: Análisis de Videos
+PoseTracker-JumpingJacks ahora permite cargar y analizar videos de ejercicios. Esta nueva característica es perfecta para revisar y mejorar la técnica de ejercicio o para fines de entrenamiento y análisis.
+
+## Cómo Usar el Análisis de Videos
+1. Coloca tus videos en la carpeta data/videos.
+
+2. Ejecuta el programa con el comando de video:
+
+```python main.py --video tu_video.mp4```
+
+Reemplaza tu_video.mp4 con el nombre de tu archivo de video.
+
 ## Cómo Empezar
 1. **Instalación de Dependencias:** Asegúrate de tener Python y las bibliotecas necesarias instaladas.
 
