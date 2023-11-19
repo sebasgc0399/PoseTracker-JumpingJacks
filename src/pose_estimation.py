@@ -96,7 +96,7 @@ class PoseEstimator:
         piernas_abiertas = angulo_derecha > umbral_piernas and angulo_izquierdo > umbral_piernas
 
         # Determinar el estado
-        if piernas_abiertas:
+        if brazos_abiertos and piernas_abiertas:
             return "Abierto"
         else:
             return "Cerrado"

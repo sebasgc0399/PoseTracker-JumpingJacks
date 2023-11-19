@@ -33,5 +33,9 @@ class Visualization:
         return True
     
     @staticmethod
+    def mostrar_fps(frame, fps):
+        cv2.putText(frame, f'FPS: {fps:.2f}', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+    @staticmethod
     def cerrar():
         return cv2.destroyAllWindows()

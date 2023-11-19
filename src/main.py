@@ -40,10 +40,6 @@ conexiones = [
     (13, 15),# Rodilla Izquierda a Pie Izquierdo
 ]
 
-contador_jumping_jacks = 0
-estado_previo = "Cerrado"  
-
-
 while True:
     # Capturar frame por frame
     frame, frame_rgb = camera.capture_frame()
@@ -64,6 +60,10 @@ while True:
 
 
         contador_jumping_jacks = jumpingJackCounter.contar(estado_actual)
+
+    # Obtener FPS y mostrarlos
+    fps = camera.calculate_fps()
+    visualization.mostrar_fps(frame, fps)
 
     # Mostrar el contador de Jumping Jacks
     visualization.mostrar_contador_jumpings(frame, contador_jumping_jacks)
