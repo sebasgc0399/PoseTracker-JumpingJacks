@@ -1,21 +1,34 @@
 import ultralytics
 ultralytics.checks()
 
+import os
 from camera_operations import CameraOperations
 from pose_estimation import PoseEstimator
 from visualization import Visualization
 from jumping_jack_counter import JumpingJackCounter
+from config_parser import parse_args
 
-jumpingJackCounter = JumpingJackCounter()
+# Parse command line arguments
+args = parse_args()
+video_path = f"../data/videos/{args.video}" if args.video else 0
+
+# Verificar si el archivo existe
+if args.video and not os.path.exists(video_path):
+    print(f"Error: El archivo de video '{video_path}' no existe. se procede a ejecutar por camara")
+else:
+    print(f"Video encontrado: '{video_path}'")
 
 # Crear una instancia de CameraOperations
-camera = CameraOperations()
+camera = CameraOperations(video_path)
 
 # Crear una instancia de PoseEstimator
 pose_estimator = PoseEstimator()
 
 # Crear una instancia de Visualization
 visualization = Visualization()
+
+# Crear una instancia de JumpingJackCounter
+jumpingJackCounter = JumpingJackCounter()
 
 # Lista de conexiones entre puntos clave
 # Cada conexión es un par de índices en la lista de puntos clave
@@ -39,6 +52,8 @@ conexiones = [
     (14, 16),# Rodilla Derecha a Pie Derecho
     (13, 15),# Rodilla Izquierda a Pie Izquierdo
 ]
+
+contador_jumping_jacks = 0
 
 while True:
     # Capturar frame por frame
