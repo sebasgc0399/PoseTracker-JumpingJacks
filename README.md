@@ -34,3 +34,7 @@ Reemplaza tu_video.mp4 con el nombre de tu archivo de video.
 - OpenCV
 - YOLO (You Only Look Once)
 - Numpy
+
+## Prueba
+https://github.com/sebasgc0399/PoseTracker-JumpingJacks/assets/61243474/c595f2c8-1f35-41ff-a65e-584c28fcd168
+
