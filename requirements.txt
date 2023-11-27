@@ -1,0 +1,8 @@
+numpy
+pandas
+matplotlib
+opencv-python==4.8.1.78
+thop==0.1.1-2209072238
+torch==2.1.1
+torchvision==0.16.1
+ultralytics==8.0.212
