@@ -2,6 +2,9 @@
 ## Descripción
 **PoseTracker-JumpingJacks** es una aplicación innovadora que utiliza el poder del aprendizaje automático y la visión por computadora para rastrear y analizar movimientos humanos en tiempo real. Especialmente diseñada para monitorear y contar ejercicios de jumping jacks, esta herramienta es perfecta para entusiastas del fitness, entrenadores personales y desarrolladores de tecnología de seguimiento de movimiento.
 
+## Requisitos del Sistema
+- Python 3.8-3.11 (Nota: PyTorch no es compatible con versiones de Python posteriores a la 3.11 en Windows)
+
 ## Características
 - **Detección de Posturas en Tiempo Real:** Utiliza modelos de YOLOv8 para detectar y rastrear posturas humanas con precisión.
 - **Contador de Jumping Jacks:** Cuenta automáticamente los jumping jacks realizados por el usuario, facilitando el seguimiento del progreso del ejercicio.
